@@ -49,6 +49,10 @@ public class HexConvert {
         return i;
     }
 
+    public static int hex2Int(String hex) {
+        return Integer.parseInt(hex, 16);
+    }
+
     // 將byte轉換為16進制
     public static String BinaryToHexString(byte[] bytes) {
         String hexStr = "0123456789ABCDEF";

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+	<div id="app">
+		<el-button @click="show">取得資料</el-button>
+		<pre>{{ textarea | pretty }}</pre>
+	</div>
+</body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    vm = new Vue({
+        el : '#app',
+        data : {
+            visible : false,
+            textarea: '',
+        },
+        methods:{
+            show: function() {
+                axios.get('no')
+                .then(function (response) {
+                    let result = response.data;
+                    vm.textarea = result;
+                })
+                .catch(function (error) {
+                  console.log(error);
+                })
+            }
+        },
+        filters: {
+            pretty: function(value) {
+                if(value) {
+                  return JSON.stringify(value, null, 2);
+                }
+            }
+          }
+    })
+</script>
+</html>
