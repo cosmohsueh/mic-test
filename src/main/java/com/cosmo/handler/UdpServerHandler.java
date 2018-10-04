@@ -5,6 +5,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cosmo.init.StartupEvent;
+import com.cosmo.repository.redis.RedisRepository;
 import com.cosmo.util.HexConvert;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -28,6 +30,9 @@ public class UdpServerHandler extends SimpleChannelInboundHandler<DatagramPacket
         String hexString = HexConvert.BinaryToHexString(buf);
         LOGGER.info("Received UDP HEX:" + hexString);
 
+        RedisRepository redisRepository = (RedisRepository) StartupEvent.getBean(RedisRepository.class);
+        redisRepository.lpush("udp:msg", hexString);
+        redisRepository.setKey("UDPMsgNumber", String.valueOf(count));
     }
 
     @Override

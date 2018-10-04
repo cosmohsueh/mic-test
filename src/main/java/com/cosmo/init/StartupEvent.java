@@ -29,4 +29,8 @@ public class StartupEvent implements ApplicationListener<ContextRefreshedEvent> 
         }
     }
 
+    public static Object getBean(Class beanName) {
+        return context != null ? context.getBean(beanName) : null;
+    }
+
 }
