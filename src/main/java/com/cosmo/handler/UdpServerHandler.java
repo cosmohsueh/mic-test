@@ -44,8 +44,13 @@ public class UdpServerHandler extends SimpleChannelInboundHandler<DatagramPacket
             // 檢測設備號碼
             int typeId = Integer.parseInt(hexAry[9], 16);
             LOGGER.info("device type id:" + typeId);
+            TYPE type = TYPE.fromInt(typeId);
+            if (type == null) {
+                LOGGER.warn("can't find Type: " + hexString);
+                return;
+            }
             No no = null;
-            switch (TYPE.fromInt(typeId)) {
+            switch (type) {
             case NO_TH:
                 no = new NoTH(hexAry);
                 break;
