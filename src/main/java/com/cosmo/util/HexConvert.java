@@ -13,12 +13,10 @@ public class HexConvert {
 
     public static String convertHexToString(String hex) {
         StringBuilder sb = new StringBuilder();
-        StringBuilder sb2 = new StringBuilder();
         for (int i = 0; i < hex.length() - 1; i += 2) {
             String s = hex.substring(i, (i + 2));
             int decimal = Integer.parseInt(s, 16);
             sb.append((char) decimal);
-            sb2.append(decimal);
         }
         return sb.toString();
     }
@@ -66,16 +64,15 @@ public class HexConvert {
         return result;
     }
 
-    public static void main(String[] args) {
-        System.out.println("======ASCII碼轉換為16進位======");
-        String str = "*00007VERSION\\n1$";
-        System.out.println("字串: " + str);
-        String hex = HexConvert.convertStringToHex(str);
-        System.out.println("====轉換為16進位=====" + hex);
-        System.out.println("======16進位轉換為ASCII======");
-        System.out.println("Hex : " + hex);
-        System.out.println("ASCII : " + HexConvert.convertHexToString(hex));
-        byte[] bytes = HexConvert.hexStringToBytes(hex);
-        System.out.println(HexConvert.BinaryToHexString(bytes));
+    public static void main(String[] args) throws Exception {
+        String hex = "02 00 15 8D 00 00 33 F4 DB 87 23 2B 01 01 01 01 00 00 00 14 B4 E1 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6A AA 00 05 03 B4 A5 5A 3C";
+        System.out.println("===將HEX轉為ASCII===");
+        System.out.println("hex:" + hex);
+        String ascii = HexConvert.convertHexToString(hex.replace(" ", "").toLowerCase());
+        System.out.println("ASCII:" + ascii);
+        System.out.println("===將ASCII轉為HEX===");
+        hex = HexConvert.BinaryToHexString(ascii.getBytes("ISO8859-1"));
+        System.out.println("hex:" + hex);
+        System.out.println("ASCII:" + HexConvert.convertHexToString(hex.replace(" ", "").toLowerCase()));
     }
 }
